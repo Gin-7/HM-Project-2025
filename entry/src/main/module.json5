@@ -1,6 +1,11 @@
 {
   "module": {
     "routerMap": "$profile:route_map",    // 路由配置文件
+    "requestPermissions": [
+      {
+        "name": 'ohos.permission.INTERNET'
+      }
+    ],
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",

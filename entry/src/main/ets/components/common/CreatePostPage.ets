@@ -1,4 +1,4 @@
-import {PostItem} from '../../types'
+import {PostItem} from '../../types/Index'
 
 // 发布页面组件
 @Component
