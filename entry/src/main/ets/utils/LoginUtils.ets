@@ -1,5 +1,6 @@
 import CommonUtils from './CommonUtils'
 import Logger from './Logger'
+import { userLogin, userRegister } from '../api/user'
 
 /**
  * Login operation tools.
@@ -10,15 +11,27 @@ export class LoginUtils {
    *
    * @param {string} account account
    * @param {string} password password
+   * @return {boolean} return login result
    */
-  public login(account: string, password: string): boolean {
+  public async login(account: string, password: string): Promise<boolean> {
     let check: Resource | string = this.loginCheck(account, password);
-    if (check !== '登录') {
+    if (check !== '登录成功') {
       Logger.error('LoginUtils', 'login account or password is empty');
       CommonUtils.showToastContent(check);
       return false;
     }
-    return true;
+
+    try {
+      const res = await userLogin(account, password);
+      if (res.code === 200) {
+        CommonUtils.showToastContent(check);
+        return true
+      }
+      else CommonUtils.showToastContent('登录失败，请稍后再试');
+    } catch (err) {
+      console.error('登录失败', err);
+    }
+    return false;
   }
 
   /**
@@ -36,11 +49,62 @@ export class LoginUtils {
     } else if (password === '') {
       return '请输入密码';
     } else {
-      check = '登录';
+      check = '登录成功';
     }
     return check;
   }
 
+  /**
+   * Register account.
+   *
+   * @param {string} account account
+   * @param {string} password password
+   * @param {string} password2 password
+   * @return {boolean} return register result
+   */
+  public async register(account: string, password: string, password2: string): Promise<boolean> {
+    let check: Resource | string = this.RegisterCheck(account, password, password2);
+    if (check !== '注册成功') {
+      Logger.error('LoginUtils', 'register account error');
+      CommonUtils.showToastContent(check);
+      return false;
+    }
+
+    try {
+      const res = await userRegister(account, account, password);
+      if (res.code === 200) {
+        CommonUtils.showToastContent(check);
+        return true
+      }
+      else CommonUtils.showToastContent('注册失败，请稍后再试');
+    } catch (err) {
+      console.error('注册失败', err);
+    }
+    return false;
+  }
+
+  /**
+   * Check account and password is it valid.
+   *
+   * @param {string} account account
+   * @param {string} password password
+   * @param {string} password2 password
+   * @return {Resource|string} return check result
+   */
+  private RegisterCheck(account: string, password: string, password2: string): string {
+    let check: string = '';
+    // TODO check details
+    if (account === '') {
+      return '请输入账号';
+    } else if (password === '' || password2 === '') {
+      return '请输入密码';
+    } else if (password !== password2) {
+      return '密码与确认密码不匹配，请检查后重试'
+    } else {
+      check = '注册成功';
+    }
+    return check;
+  }
 }
 
 export default new LoginUtils();
