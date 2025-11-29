@@ -52,9 +52,56 @@ export struct AccountComponent {
       .backgroundColor('#FFFFFF')
       .borderRadius(12)
       .margin(16)
+
+      // 功能菜单区域
+      Column() {
+        // 消息
+        this.MenuItem('消息', '💬')
+        // 我的好友
+        this.MenuItem('我的好友', '👥')
+        // 我的帖子
+        this.MenuItem('我的帖子', '📝')
+        // 我的小组
+        this.MenuItem('我的小组', '👥')
+      }
+      .width('100%')
+      .padding(16)
+      .backgroundColor('#FFFFFF')
+      .borderRadius(12)
+      .margin({ left: 16, right: 16, bottom: 16 })
     }
     .width('100%')
     .height('100%')
     .backgroundColor('#F5F5F5')
+  }
+
+  @Builder
+  MenuItem(title: string, icon: string) {
+    Row() {
+      // 图标
+      Text(icon)
+        .fontSize(20)
+        .width(40)
+
+      // 标题
+      Text(title)
+        .fontSize(16)
+        .fontColor('#333333')
+        .layoutWeight(1)
+        .margin({ left: 12 })
+
+      // 右侧箭头
+      Text('>')
+        .fontSize(16)
+        .fontColor('#CCCCCC')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(8)
+    .onClick(() => {
+      console.info(`点击了: ${title}`)
+      // 这里可以添加点击后的跳转逻辑
+    })
   }
 }
