@@ -10,18 +10,21 @@
 │  │  │  ├──CreatePostPage.ets
 │  │  │  └──PostCard.ets
 │  │  └──user
-│  │     └──PostCard.ets
+│  │     ├──AccountComponent.ets
+│  │     └──FriendList.ets
 │  ├──entryability
 │  │  └──EntryAbility.ets
 │  ├──entrybackupability
 │  │  └──EntryBackupAbility.ets
 │  ├──pages
+│  │  ├──Course.ets                             // 课表页
+│  │  ├──Health.ets                             // 健康看板页
 │  │  ├──index.ets                              // 起始页
 │  │  ├──Login.ets                              // 登录、注册页
 │  │  ├──Main.ets                               // 主页面
 │  │  └──ServicePage.ets                        // 功能页面
 │  ├──types
-│  │  └──Index.ets
+│  │  └──Types.ets
 │  └──utils
 │     ├──BaseRequest.ets                        // axios 请求
 │     ├──CommonUtils.ets                        // 公共工具
@@ -29,6 +32,11 @@
 │     └──LoginUtils.ets                         // 登录、注册工具
 └──entry/src/main/resources
 ```
+### 11.30
+- 个人健康看板、课程表、好友列表
+- TODO
+  - [ ] 修改课程表、好友列表的路由方法
+
 ### 11.29
 - 服务页面框架
 
