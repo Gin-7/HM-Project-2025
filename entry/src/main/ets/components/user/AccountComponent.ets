@@ -1,7 +1,12 @@
 // components/user/AccountComponent.ets
+import { GlobalUserInfo } from "../../types/Types"
+import { AppStorageV2 } from "@kit.ArkUI"
+
+@Preview
 @Component
 export struct AccountComponent {
-  @State userName: string = "张三"
+  userInfo: GlobalUserInfo = AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo())!
+  @State userName: string = this.userInfo.userName
   @State collegeName: string = "计算机学院"
   @State healthScore: number = 85
 
@@ -47,7 +52,7 @@ export struct AccountComponent {
           .backgroundColor('#F8F9FA')
           .borderRadius(8)
       }
-      .width('100%')
+      .width('90%')
       .padding(24)
       .backgroundColor('#FFFFFF')
       .borderRadius(12)
@@ -64,7 +69,7 @@ export struct AccountComponent {
         // 我的小组
         this.MenuItem('我的小组', '👥')
       }
-      .width('100%')
+      .width('90%')
       .padding(16)
       .backgroundColor('#FFFFFF')
       .borderRadius(12)

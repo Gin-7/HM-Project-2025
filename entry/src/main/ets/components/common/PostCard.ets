@@ -1,5 +1,5 @@
 // components/common/PostCard.ets
-import {PostItem} from '../../types/Index'
+import {PostItem} from '../../types/Types'
 
 @Component
 export struct PostCard {

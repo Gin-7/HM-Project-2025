@@ -1,7 +1,7 @@
 import { AccountComponent } from '../components/user/AccountComponent'
 import {AdSwiper} from '../components/common/AdSwiper'
 import {PostCard} from '../components/common/PostCard'
-import {PostItem,AdItem} from '../types/Index'
+import {PostItem,AdItem} from '../types/Types'
 import {CreatePostPage} from '../components/common/CreatePostPage'
 import {ServicePage} from './ServicePage'
 
@@ -16,6 +16,7 @@ export function MainBuilder() {
 }
 
 @Entry
+@Preview
 @Component
 struct Main {
   pathStack: NavPathStack = new NavPathStack()

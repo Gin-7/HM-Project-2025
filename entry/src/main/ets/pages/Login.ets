@@ -1,4 +1,6 @@
 import { AppStorageV2 } from '@kit.ArkUI'
+import { GlobalUserInfo } from '../types/Types'
+import CommonUtils from '../utils/CommonUtils'
 import LoginUtils from '../utils/LoginUtils'
 
 @Builder
@@ -36,7 +38,6 @@ struct Login {
     .backgroundColor('#F1F3F5')
   }
 }
-
 
 @Component
 struct LoginTitle {
@@ -107,12 +108,12 @@ struct LoginBottom {
         Text('短信验证码登录')
           .blueTextStyle()
           .onClick(() => {
-            // CommonUtils.showToastContent($r('app.string.incomplete_toast'));
+            CommonUtils.showToastContent('暂无相关服务');
           })
         Text('忘记密码')
           .blueTextStyle()
           .onClick(() => {
-            // CommonUtils.showToastContent($r('app.string.incomplete_toast'));
+            CommonUtils.showToastContent('暂无相关服务');
           })
       }
       .justifyContent(FlexAlign.SpaceBetween)
@@ -146,7 +147,6 @@ struct LoginBottom {
         .fontWeight(FontWeight.Medium)
         .onClick(() => {
           this.login = false
-          // CommonUtils.showToastContent($r('app.string.incomplete_toast'));
         })
     }
     .padding({
@@ -257,7 +257,6 @@ struct RegisterBottom {
         .fontWeight(FontWeight.Medium)
         .onClick(() => {
           this.login = true
-          // CommonUtils.showToastContent($r('app.string.incomplete_toast'));
         })
     }
     .padding({

@@ -29,6 +29,8 @@
 │     └──LoginUtils.ets                         // 登录、注册工具
 └──entry/src/main/resources
 ```
+### 11.29
+- 服务页面框架
 
 ### 11.25
 - 项目根目录 ohpm install @ohos/axios

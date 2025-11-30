@@ -1,17 +1,16 @@
 import { axiosAPI } from '../utils/BaseRequest';
-import type {RegisterReq, ApiResponse} from './types'
+import type { ApiResponse, LoginRes, RegisterRes } from './types'
 
-export const userRegister = (account: string, username: string, password: string) => {
-  return axiosAPI.post<ApiResponse<void>>('/api/user/register', {
-    account,
+export const userRegister = (username: string, password: string) => {
+  return axiosAPI.post<ApiResponse<RegisterRes>>('/api/user/register', {
     username,
     password
   });
 };
 
-export const userLogin = (account: string, password: string) => {
-  return axiosAPI.post<ApiResponse<void>>('/api/user/login', {
-    account,
+export const userLogin = (username: string, password: string) => {
+  return axiosAPI.post<ApiResponse<LoginRes>>('/api/user/login', {
+    username,
     password
   });
 };

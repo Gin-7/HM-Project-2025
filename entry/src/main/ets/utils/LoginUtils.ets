@@ -1,6 +1,8 @@
 import CommonUtils from './CommonUtils'
 import Logger from './Logger'
 import { userLogin, userRegister } from '../api/user'
+import { AppStorageV2 } from '@kit.ArkUI';
+import { GlobalUserInfo } from '../types/Types';
 
 /**
  * Login operation tools.
@@ -25,6 +27,7 @@ export class LoginUtils {
       const res = await userLogin(account, password);
       if (res.code === 200) {
         CommonUtils.showToastContent(check);
+        AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo(res.data.id, res.data.username))!
         return true
       }
       else CommonUtils.showToastContent('登录失败，请稍后再试');
@@ -71,9 +74,10 @@ export class LoginUtils {
     }
 
     try {
-      const res = await userRegister(account, account, password);
+      const res = await userRegister(account, password);
       if (res.code === 200) {
         CommonUtils.showToastContent(check);
+        AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo(res.data.id, res.data.username))!
         return true
       }
       else CommonUtils.showToastContent('注册失败，请稍后再试');

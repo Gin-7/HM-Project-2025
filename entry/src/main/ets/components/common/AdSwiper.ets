@@ -1,5 +1,5 @@
 // components/common/AdSwiper.ets
-import {AdItem} from '../../types/Index'
+import {AdItem} from '../../types/Types'
 @Component
 export struct AdSwiper {
   @Link currentAdIndex: number

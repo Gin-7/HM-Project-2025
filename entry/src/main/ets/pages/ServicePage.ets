@@ -1,11 +1,15 @@
+import { AppStorageV2 } from "@kit.ArkUI"
+
 @Preview
 @Component
 export struct ServicePage {
+  pathStack: NavPathStack = AppStorageV2.connect(NavPathStack, 'navStack', () => new NavPathStack())!
+
   @State searchText: string = ''
 
   build() {
     Column() {
-      // 搜索栏
+      // 搜索栏 TODO 🔍放右边
       Row() {
         Text('⌕')
           .fontSize(18)
@@ -40,7 +44,8 @@ export struct ServicePage {
               '📊',
               '全面监测您的健康数据',
               ['血氧', '血压', '血糖', '体重', '心率', '睡眠'],
-              '#E3F2FD'
+              '#E3F2FD',
+              'Health'
             )
 
             // 课程表
@@ -49,7 +54,8 @@ export struct ServicePage {
               '📅',
               '规划您的健康学习计划',
               ['运动课程', '饮食指导', '健康讲座', '康复训练'],
-              '#E8F5E8'
+              '#E8F5E8',
+              ''    // TODO 路由
             )
           }
           .width('100%')
@@ -70,7 +76,7 @@ export struct ServicePage {
   }
 
   @Builder
-  ServiceCard(title: string, icon: string, description: string, features: string[], bgColor: string) {
+  ServiceCard(title: string, icon: string, description: string, features: string[], bgColor: string, routeName: string) {
     Column() {
       // 卡片头部
       Row() {
@@ -118,6 +124,7 @@ export struct ServicePage {
         .alignSelf(ItemAlign.End)
         .onClick(() => {
           console.info(`进入${title}`)
+          this.pathStack.pushPathByName(routeName, null, false)
         })
     }
     .width('100%')
