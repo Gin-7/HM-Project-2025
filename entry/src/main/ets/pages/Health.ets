@@ -64,12 +64,19 @@ struct Health {
     NavDestination() {
       Column() {
         // 标题
-        Text("个人健康看板")
-          .fontSize(20)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .textAlign(TextAlign.Center)
-          .padding({ top: 16, bottom: 20 })
+        Stack({alignContent: Alignment.Start}) {
+          Text("个人健康看板")
+            .fontSize(20)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .textAlign(TextAlign.Center)
+          Text('←')
+            .fontSize(20)
+            .fontColor('#007DFF')
+            .onClick(() => {
+              this.pathStack.pop()
+            })
+        }.width('100%').backgroundColor(Color.White).padding(16)
 
         // 第一部分：运动数据（进度条+数字）
         Column() {
@@ -99,8 +106,9 @@ struct Health {
           })
         }
         .width('90%')
+        .margin({top: 16})
         .padding(12)
-        .backgroundColor('#ffecffff')
+        .backgroundColor('#ffffffff')
         .borderRadius(24)
 
 
@@ -121,14 +129,17 @@ struct Health {
         .width('90%')
         .margin({ top: 16 })
         .padding({ top: 16, bottom: 16, left: 8, right: 8 })
-        .backgroundColor('#ffffeeee')
+        .backgroundColor('#ffffffff')
         .borderRadius(24)
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#F5F5F5')
     }
     .onReady((context: NavDestinationContext) => {
       this.pathStack = context.pathStack
     })
+    .hideTitleBar(true)
   }
 
 }

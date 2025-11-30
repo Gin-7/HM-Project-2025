@@ -23,6 +23,30 @@
       "data": {
         "description": "个人健康看板页面"
       }
+    },
+    {
+      "name": "Course",
+      "pageSourceFile": "src/main/ets/pages/Course.ets",
+      "buildFunction": "CourseBuilder",
+      "data": {
+        "description": "课程表页面"
+      }
+    },
+    {
+      "name": "Friend",
+      "pageSourceFile": "src/main/ets/pages/FriendList.ets",
+      "buildFunction": "FriendListBuilder",
+      "data": {
+        "description": "好友列表页面"
+      }
+    },
+    {
+      "name": "TrainingPlan",
+      "pageSourceFile": "src/main/ets/components/common/TrainingPlan.ets",
+      "buildFunction": "TrainingPlanBuilder",
+      "data": {
+        "description": "训练计划页面"
+      }
     }
   ]
 }

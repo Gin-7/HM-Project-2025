@@ -1,9 +1,16 @@
 // FriendList.ets
 import router from '@ohos.router';
 
+@Builder
+export function FriendListBuilder() {
+  FriendList()
+}
+
 @Preview
 @Component
 struct FriendList {
+  pathStack: NavPathStack = new NavPathStack()
+
   @State searchText: string = ''
   @State showSearchPage: boolean = false
   @State friends: FriendItem[] = [
@@ -15,19 +22,25 @@ struct FriendList {
   @State searchResults: FriendItem[] = []
 
   build() {
-    Column() {
-      // 根据状态显示不同的页面
-      if (this.showSearchPage) {
-        // 搜索页面 - 完全独立的页面
-        this.SearchPage()
-      } else {
-        // 好友列表页面
-        this.FriendListPage()
+    NavDestination() {
+      Column() {
+        // 根据状态显示不同的页面
+        if (this.showSearchPage) {
+          // 搜索页面 - 完全独立的页面
+          this.SearchPage()
+        } else {
+          // 好友列表页面
+          this.FriendListPage()
+        }
       }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#F5F5F5')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#F5F5F5')
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack
+    })
+    .hideTitleBar(true)
   }
 
   @Builder
@@ -39,7 +52,7 @@ struct FriendList {
           .fontSize(20)
           .fontColor('#007DFF')
           .onClick(() => {
-            router.back()
+            this.pathStack.pop()
           })
 
         Text('我的好友')

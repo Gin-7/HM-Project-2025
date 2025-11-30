@@ -8,16 +8,17 @@
 │  │  ├──common
 │  │  │  ├──AdSwiper.ets
 │  │  │  ├──CreatePostPage.ets
-│  │  │  └──PostCard.ets
+│  │  │  ├──PostCard.ets
+│  │  │  └──TrainingPlan.ets                    // 训练计划
 │  │  └──user
-│  │     ├──AccountComponent.ets
-│  │     └──FriendList.ets
+│  │     └──AccountComponent.ets
 │  ├──entryability
 │  │  └──EntryAbility.ets
 │  ├──entrybackupability
 │  │  └──EntryBackupAbility.ets
 │  ├──pages
 │  │  ├──Course.ets                             // 课表页
+│  │  ├──FriendList.ets                         // 好友列表
 │  │  ├──Health.ets                             // 健康看板页
 │  │  ├──index.ets                              // 起始页
 │  │  ├──Login.ets                              // 登录、注册页
@@ -33,9 +34,7 @@
 └──entry/src/main/resources
 ```
 ### 11.30
-- 个人健康看板、课程表、好友列表
-- TODO
-  - [ ] 修改课程表、好友列表的路由方法
+- 个人健康看板、课程表、好友列表、训练计划
 
 ### 11.29
 - 服务页面框架

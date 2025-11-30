@@ -1,9 +1,16 @@
 // CourseSchedule.ets
 import router from '@ohos.router';
 
+@Builder
+export function CourseBuilder() {
+  CourseSchedule()
+}
+
 @Preview
 @Component
 struct CourseSchedule {
+  pathStack: NavPathStack = new NavPathStack()
+
   @State courses: CourseItem[] = [
     { id: 1, day: 1, startTime: '08:00', endTime: '08:50', name: '晨间瑜伽', location: '健身房', type: '运动' },
     { id: 2, day: 1, startTime: '11:10', endTime: '12:00', name: '营养学基础', location: '线上', type: '学习' },
@@ -31,124 +38,130 @@ struct CourseSchedule {
 
 
   build() {
-    Column() {
-      // 顶部导航栏
-      Row() {
-        Text('←')
-          .fontSize(20)
-          .fontColor('#007DFF')
-          .onClick(() => {
-            router.back()
-          })
-
-        Text('健康课程表')
-          .fontSize(18)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#333333')
-          .margin({ left: 12 })
-
-        // 导入和添加按钮
+    NavDestination() {
+      Column() {
+        // 顶部导航栏
         Row() {
-          Text('导入')
-            .fontSize(14)
+          Text('←')
+            .fontSize(20)
             .fontColor('#007DFF')
-            .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-            .backgroundColor('#E6F2FF')
-            .borderRadius(16)
             .onClick(() => {
-              this.importSchedule()
+              this.pathStack.pop()
             })
 
-          Text('+')
+          Text('健康课程表')
             .fontSize(18)
-            .fontColor('#007DFF')
-            .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-            .backgroundColor('#E6F2FF')
-            .borderRadius(16)
-            .margin({ left: 8 })
-            .onClick(() => {
-              this.showAddCourse = true
-            })
-        }
-        .margin({ left: 12 })
-      }
-      .width('100%')
-      .padding(16)
-      .backgroundColor('#FFFFFF')
-      .alignItems(VerticalAlign.Center)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#333333')
+            .margin({ left: 12 })
 
-      // 星期选择
-      this.DaySelector()
-
-      // 课程表主体
-      Scroll() {
-        Column() {
-          // 时间轴和课程
+          // 导入和添加按钮
           Row() {
-            // 时间轴
-            Column() {
-              ForEach(this.timeSlots, (timeSlot: string) => {
-                Column() {
-                  Text(timeSlot.split('-')[0])
-                    .fontSize(12)
-                    .fontColor('#666666')
-                  Text(timeSlot.split('-')[1])
-                    .fontSize(12)
-                    .fontColor('#999999')
-                    .margin({ top: 2 })
-                }
-                .width(60)
-                .height(80)
-                .justifyContent(FlexAlign.Center)
-                .alignItems(HorizontalAlign.Center)
-                .backgroundColor('#F8F9FA')
-                .border({ width: { bottom: 1 }, color: '#E5E5E5' })
+            Text('导入')
+              .fontSize(14)
+              .fontColor('#007DFF')
+              .padding({ left: 12, right: 12, top: 6, bottom: 6 })
+              .backgroundColor('#E6F2FF')
+              .borderRadius(16)
+              .onClick(() => {
+                this.importSchedule()
               })
-            }
 
-            // 课程内容
-            // 课程内容
-            Scroll() {
+            Text('+')
+              .fontSize(18)
+              .fontColor('#007DFF')
+              .padding({ left: 12, right: 12, top: 6, bottom: 6 })
+              .backgroundColor('#E6F2FF')
+              .borderRadius(16)
+              .margin({ left: 8 })
+              .onClick(() => {
+                this.showAddCourse = true
+              })
+          }
+          .margin({ left: 12 })
+        }
+        .width('100%')
+        .padding(16)
+        .backgroundColor('#FFFFFF')
+        .alignItems(VerticalAlign.Center)
+
+        // 星期选择
+        this.DaySelector()
+
+        // 课程表主体
+        Scroll() {
+          Column() {
+            // 时间轴和课程
+            Row() {
+              // 时间轴
               Column() {
-                ForEach(this.timeSlots, (timeSlot: string, timeIndex: number) => {
-                  // 使用三元表达式直接判断，避免变量声明
-                  Row() {
-                    if (this.getCourseAtTime(timeSlot, this.selectedDay)) {
-                      // 有课程的情况
-                      this.CourseBlock(this.getCourseAtTime(timeSlot, this.selectedDay)!)
-                    } else {
-                      // 空时间段
-                      Column() {
-                        Text('')
-                      }
-                      .width('100%')
-                      .height(80)
-                      .backgroundColor('#FFFFFF')
-                      .border({ width: { bottom: 1 }, color: '#E5E5E5' })
-                      .onClick(() => {
-                        this.addCourseAtTime(timeSlot)
-                      })
-                    }
+                ForEach(this.timeSlots, (timeSlot: string) => {
+                  Column() {
+                    Text(timeSlot.split('-')[0])
+                      .fontSize(12)
+                      .fontColor('#666666')
+                    Text(timeSlot.split('-')[1])
+                      .fontSize(12)
+                      .fontColor('#999999')
+                      .margin({ top: 2 })
                   }
-                  .width('100%')
+                  .width(60)
+                  .height(80)
+                  .justifyContent(FlexAlign.Center)
+                  .alignItems(HorizontalAlign.Center)
+                  .backgroundColor('#F8F9FA')
+                  .border({ width: { bottom: 1 }, color: '#E5E5E5' })
                 })
               }
+
+              // 课程内容
+              // 课程内容
+              Scroll() {
+                Column() {
+                  ForEach(this.timeSlots, (timeSlot: string, timeIndex: number) => {
+                    // 使用三元表达式直接判断，避免变量声明
+                    Row() {
+                      if (this.getCourseAtTime(timeSlot, this.selectedDay)) {
+                        // 有课程的情况
+                        this.CourseBlock(this.getCourseAtTime(timeSlot, this.selectedDay)!)
+                      } else {
+                        // 空时间段
+                        Column() {
+                          Text('')
+                        }
+                        .width('100%')
+                        .height(80)
+                        .backgroundColor('#FFFFFF')
+                        .border({ width: { bottom: 1 }, color: '#E5E5E5' })
+                        .onClick(() => {
+                          this.addCourseAtTime(timeSlot)
+                        })
+                      }
+                    }
+                    .width('100%')
+                  })
+                }
+              }
+              .layoutWeight(1)
             }
-            .layoutWeight(1)
           }
         }
-      }
-      .layoutWeight(1)
-      .backgroundColor('#FFFFFF')
+        .layoutWeight(1)
+        .backgroundColor('#FFFFFF')
 
-      // 添加课程弹窗
-      if (this.showAddCourse) {
-        this.AddCourseDialog()
+        // 添加课程弹窗
+        if (this.showAddCourse) {
+          this.AddCourseDialog()
+        }
       }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#F5F5F5')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#F5F5F5')
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack
+    })
+    .hideTitleBar(true)
   }
 
   @Builder

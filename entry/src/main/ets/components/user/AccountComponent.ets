@@ -5,7 +5,9 @@ import { AppStorageV2 } from "@kit.ArkUI"
 @Preview
 @Component
 export struct AccountComponent {
+  pathStack: NavPathStack = AppStorageV2.connect(NavPathStack, 'navStack', () => new NavPathStack())!
   userInfo: GlobalUserInfo = AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo())!
+
   @State userName: string = this.userInfo.userName
   @State collegeName: string = "计算机学院"
   @State healthScore: number = 85
@@ -63,7 +65,7 @@ export struct AccountComponent {
         // 消息
         this.MenuItem('消息', '💬')
         // 我的好友
-        this.MenuItem('我的好友', '👥')
+        this.MenuItem('我的好友', '👥', 'Friend')
         // 我的帖子
         this.MenuItem('我的帖子', '📝')
         // 我的小组
@@ -81,7 +83,7 @@ export struct AccountComponent {
   }
 
   @Builder
-  MenuItem(title: string, icon: string) {
+  MenuItem(title: string, icon: string, route?: string) {
     Row() {
       // 图标
       Text(icon)
@@ -106,7 +108,7 @@ export struct AccountComponent {
     .borderRadius(8)
     .onClick(() => {
       console.info(`点击了: ${title}`)
-      // 这里可以添加点击后的跳转逻辑
+      this.pathStack.pushPathByName(route!, null, false)
     })
   }
 }

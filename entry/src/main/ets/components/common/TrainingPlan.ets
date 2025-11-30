@@ -1,9 +1,16 @@
 // TrainingPlan.ets
 import router from '@ohos.router';
 
-@Entry
+@Builder
+export function TrainingPlanBuilder() {
+  TrainingPlan()
+}
+
+@Preview
 @Component
 struct TrainingPlan {
+  pathStack: NavPathStack = new NavPathStack()
+
   @State planName: string = '我的训练计划'
   @State selectedDays: number[] = [1, 3, 5] // 1-7 周一到周日
   @State duration: number = 30 // 分钟
@@ -31,70 +38,76 @@ struct TrainingPlan {
   ]
 
   build() {
-    Column() {
-      // 顶部导航 - 极简设计
-      Row() {
-        Text('←')
-          .fontSize(20)
-          .fontColor('#2C3E50')
-          .onClick(() => {
-            router.back()
-          })
+    NavDestination() {
+      Column() {
+        // 顶部导航 - 极简设计
+        Row() {
+          Text('←')
+            .fontSize(20)
+            .fontColor('#2C3E50')
+            .onClick(() => {
+              this.pathStack.pop()
+            })
 
-        Text('训练计划')
-          .fontSize(18)
-          .fontWeight(FontWeight.Medium)
-          .fontColor('#2C3E50')
-          .margin({ left: 12 })
-          .layoutWeight(1)
+          Text('训练计划')
+            .fontSize(18)
+            .fontWeight(FontWeight.Medium)
+            .fontColor('#2C3E50')
+            .margin({ left: 12 })
+            .layoutWeight(1)
 
-        Text('保存')
-          .fontSize(16)
-          .fontColor('#FFFFFF')
-          .padding({ left: 20, right: 20, top: 8, bottom: 8 })
-          .backgroundColor('#2C3E50')
-          .borderRadius(20)
-          .onClick(() => {
-            this.savePlan()
-          })
-      }
-      .width('100%')
-      .padding(20)
-      .backgroundColor('#FFFFFF')
-
-      Scroll() {
-        Column() {
-          // 计划名称
-          this.PlanNameSection()
-
-          // 训练天数
-          this.DaySelectionSection()
-
-          // 训练时长和强度
-          this.DurationIntensitySection()
-
-          // 训练类型选择
-          this.ExerciseTypeSection()
-
-          // 已选训练项目
-          this.SelectedExercisesSection()
-
-          // 添加训练按钮
-          this.AddExerciseButton()
+          Text('保存')
+            .fontSize(16)
+            .fontColor('#FFFFFF')
+            .padding({ left: 20, right: 20, top: 8, bottom: 8 })
+            .backgroundColor('#2C3E50')
+            .borderRadius(20)
+            .onClick(() => {
+              this.savePlan()
+            })
         }
         .width('100%')
-        .padding({ bottom: 30 })
-      }
-      .layoutWeight(1)
+        .padding(20)
+        .backgroundColor('#FFFFFF')
 
-      // 训练项目选择器
-      if (this.showExercisePicker) {
-        this.ExercisePicker()
+        Scroll() {
+          Column() {
+            // 计划名称
+            this.PlanNameSection()
+
+            // 训练天数
+            this.DaySelectionSection()
+
+            // 训练时长和强度
+            this.DurationIntensitySection()
+
+            // 训练类型选择
+            this.ExerciseTypeSection()
+
+            // 已选训练项目
+            this.SelectedExercisesSection()
+
+            // 添加训练按钮
+            this.AddExerciseButton()
+          }
+          .width('100%')
+          .padding({ bottom: 30 })
+        }
+        .layoutWeight(1)
+
+        // 训练项目选择器
+        if (this.showExercisePicker) {
+          this.ExercisePicker()
+        }
       }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#FAFAFA') // 浅灰背景，ins风
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FAFAFA') // 浅灰背景，ins风
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack
+    })
+    .hideTitleBar(true)
   }
 
   @Builder

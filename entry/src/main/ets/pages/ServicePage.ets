@@ -46,14 +46,14 @@ export struct ServicePage {
               '📊',
               '全面监测您的健康数据',
               ['血氧', '血压', '血糖', '体重', '心率', '睡眠'],
-              'Health'
+              'Health'    // 路由
             )
             this.ServiceCard(
               '健康课程表',
               '📅',
               '规划您的健康学习计划',
               ['运动课程', '饮食指导', '健康讲座', '康复训练'],
-              ''    // TODO 路由
+              'Course'
             )
           }
           .width('100%')
@@ -161,7 +161,7 @@ export struct ServicePage {
         this.QuickItem('紧急联系', '📞')
         this.QuickItem('健康记录', '📝')
         this.QuickItem('用药提醒', '💊')
-        this.QuickItem('运动计划', '🏃')
+        this.QuickItem('运动计划', '🏃', 'TrainingPlan')
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
@@ -171,7 +171,7 @@ export struct ServicePage {
   }
 
   @Builder
-  QuickItem(title: string, icon: string) {
+  QuickItem(title: string, icon: string, route?: string) {
     Column() {
       Text(icon).fontSize(20).margin({ bottom: 8 })
       Text(title).fontSize(12).fontColor('#111111')
@@ -188,6 +188,9 @@ export struct ServicePage {
       offsetX: 0,                  // X方向偏移
       offsetY: 4                   // Y方向偏移
     })
-    .onClick(() => console.info(`点击了 ${title}`))
+    .onClick(() => {
+      console.info(`点击了 ${title}`)
+      this.pathStack.pushPathByName(route!, null, false)
+    })
   }
 }
