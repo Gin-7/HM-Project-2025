@@ -104,6 +104,8 @@ export class LoginUtils {
       return '请输入密码';
     } else if (password !== password2) {
       return '密码与确认密码不匹配，请检查后重试'
+    } else if (password.length < 6 || password.length > 20) {
+      return '密码长度必须在6-20个字符之间'
     } else {
       check = '注册成功';
     }

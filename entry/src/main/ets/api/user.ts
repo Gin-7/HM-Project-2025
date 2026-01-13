@@ -14,3 +14,11 @@ export const userLogin = (username: string, password: string) => {
     password
   });
 };
+
+export const userUpdate = (id: number, gender: string, age: number) => {
+  return axiosAPI.put<ApiResponse<LoginRes>>('/api/user', {
+    id,
+    gender,
+    age
+  });
+};

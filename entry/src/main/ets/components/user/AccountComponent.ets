@@ -70,6 +70,8 @@ export struct AccountComponent {
         this.MenuItem('我的帖子', '📝')
         // 我的小组
         this.MenuItem('我的小组', '👥')
+        // settings
+        this.MenuItem('设置', '⚙️', 'Settings')
       }
       .width('90%')
       .padding(16)

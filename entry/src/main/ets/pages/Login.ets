@@ -78,7 +78,7 @@ struct LoginBottom {
       Column() {
         TextInput({ placeholder: '账号' })
           .maxLength(11)
-          .type(InputType.Number)
+          .type(InputType.Normal)
           .inputStyle()
           .onChange((value: string) => {
             this.account = value;
@@ -191,7 +191,7 @@ struct RegisterBottom {
       Column() {
         TextInput({ placeholder: '账号' })
           .maxLength(11)
-          .type(InputType.Number)
+          .type(InputType.Normal)
           .inputStyle()
           .onChange((value: string) => {
             this.account = value;

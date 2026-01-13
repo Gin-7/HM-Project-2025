@@ -74,10 +74,18 @@ class BaseRequest {
     }
     return this.request<T>({ method: 'POST', url, data });
   }
+
+  put<T = any>(url: string, data?: any): Promise<T> {
+    if (this.debug) {
+      const mockData = { code: 200, msg: 'Mock success', data: {} }
+      return new Promise((resolve) => { resolve(mockData as T) });
+    }
+    return this.request<T>({ method: 'PUT', url, data });
+  }
 }
 
 // 导出实例
 export const axiosAPI = new BaseRequest({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://192.168.1.102:8080',
   timeout: 10000
 });

@@ -18,11 +18,13 @@
 │  │  └──EntryBackupAbility.ets
 │  ├──pages
 │  │  ├──Course.ets                             // 课表页
+│  │  ├──EditProfile.ets                        // 编辑个人资料
 │  │  ├──FriendList.ets                         // 好友列表
 │  │  ├──Health.ets                             // 健康看板页
 │  │  ├──index.ets                              // 起始页
 │  │  ├──Login.ets                              // 登录、注册页
 │  │  ├──Main.ets                               // 主页面
+│  │  ├──Settings.ets                           // 设置
 │  │  └──ServicePage.ets                        // 功能页面
 │  ├──types
 │  │  └──Types.ets
@@ -30,9 +32,13 @@
 │     ├──BaseRequest.ets                        // axios 请求
 │     ├──CommonUtils.ets                        // 公共工具
 │     ├──Logger.ets                             // 日志工具
-│     └──LoginUtils.ets                         // 登录、注册工具
+│     ├──LoginUtils.ets                         // 登录、注册工具
+│     └──UserInfoUtils.ets                      // 个人资料工具
 └──entry/src/main/resources
 ```
+### 1.13
+- 更新个人资料
+
 ### 11.30
 - 个人健康看板、课程表、好友列表、训练计划
 
@@ -42,7 +48,9 @@
 ### 11.25
 - 项目根目录 ohpm install @ohos/axios
 - 登录注册基础功能 (utils/BaseRequest.ets: debug=true, 未测试请求后端)
+
 ### 11.23
 - 登录页面 demo
+
 ### 11.18
 - 添加路由配置，可在模拟器运行

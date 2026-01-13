@@ -41,11 +41,19 @@
       }
     },
     {
-      "name": "TrainingPlan",
-      "pageSourceFile": "src/main/ets/components/common/TrainingPlan.ets",
-      "buildFunction": "TrainingPlanBuilder",
+      "name": "Settings",
+      "pageSourceFile": "src/main/ets/pages/Settings.ets",
+      "buildFunction": "SettingsBuilder",
       "data": {
-        "description": "训练计划页面"
+        "description": "设置页面"
+      }
+    },
+    {
+      "name": "EditProfile",
+      "pageSourceFile": "src/main/ets/pages/EditProfile.ets",
+      "buildFunction": "EditProfileBuilder",
+      "data": {
+        "description": "编辑个人资料页面"
       }
     }
   ]

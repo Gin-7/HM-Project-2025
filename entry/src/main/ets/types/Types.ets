@@ -25,10 +25,14 @@ export interface PostItem {
 export class GlobalUserInfo {
   userID: number;
   userName: string;
+  gender: string;
+  age: number;
 
-  constructor(userID?: number, userName?: string) {
+  constructor(userID?: number, userName?: string, gender?: string, age?: number) {
     this.userID = userID ?? 1;
     this.userName = userName ?? 'Jack';
+    this.gender = gender ?? 'MALE';
+    this.age = age ?? 20;
   }
 }
 
