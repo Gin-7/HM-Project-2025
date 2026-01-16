@@ -2,6 +2,8 @@
 ```
 ├───entry/src/main/ets
 │  ├──api
+│  │  ├──ai.ts                                  // ai 接口
+│  │  ├──health.ts                              // 健康记录接口
 │  │  ├──types.ts                               // 各种接口
 │  │  └──user.ts                                // 用户相关 api
 │  ├──components
@@ -29,13 +31,19 @@
 │  ├──types
 │  │  └──Types.ets
 │  └──utils
+│     ├──AIUtils.ets                            // AI 工具
 │     ├──BaseRequest.ets                        // axios 请求
 │     ├──CommonUtils.ets                        // 公共工具
+│     ├──HealthUtils.ets                        // 健康记录工具
 │     ├──Logger.ets                             // 日志工具
 │     ├──LoginUtils.ets                         // 登录、注册工具
+│     ├──MockUtils.ets                          // 模拟数据工具
 │     └──UserInfoUtils.ets                      // 个人资料工具
 └──entry/src/main/resources
 ```
+### 1.16
+- 健康看板
+
 ### 1.13
 - 更新个人资料
 

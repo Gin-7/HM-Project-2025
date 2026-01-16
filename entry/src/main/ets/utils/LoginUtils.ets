@@ -3,6 +3,7 @@ import Logger from './Logger'
 import { userLogin, userRegister } from '../api/user'
 import { AppStorageV2 } from '@kit.ArkUI';
 import { GlobalUserInfo } from '../types/Types';
+import HealthUtils from './HealthUtils';
 
 /**
  * Login operation tools.
@@ -27,7 +28,7 @@ export class LoginUtils {
       const res = await userLogin(account, password);
       if (res.code === 200) {
         CommonUtils.showToastContent(check);
-        AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo(res.data.id, res.data.username))!
+        AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo(res.data?.id?? -1, res.data?.username?? 'null'))!
         return true
       }
       else CommonUtils.showToastContent('登录失败，请稍后再试');
@@ -76,11 +77,14 @@ export class LoginUtils {
     try {
       const res = await userRegister(account, password);
       if (res.code === 200) {
-        CommonUtils.showToastContent(check);
-        AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo(res.data.id, res.data.username))!
-        return true
+        const create = await HealthUtils.createRcd(res.data?.id?? -1);
+        if (create) {
+          CommonUtils.showToastContent(check);
+          AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo(res.data?.id?? -1, res.data?.username?? 'null'))!
+          return true
+        }
       }
-      else CommonUtils.showToastContent('注册失败，请稍后再试');
+      CommonUtils.showToastContent('注册失败，请稍后再试');
     } catch (err) {
       console.error('注册失败', err);
     }

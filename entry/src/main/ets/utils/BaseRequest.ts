@@ -39,8 +39,9 @@ class BaseRequest {
         if (data.code === 200) {
           return data;
         } else {
-          uiContext!.getPromptAction().showToast({ message: data.msg || '请求失败', duration: 2000 });
-          return Promise.reject(new Error(data.msg));
+          // uiContext!.getPromptAction().showToast({ message: data.msg || '请求失败', duration: 2000 });
+          // return Promise.reject(new Error(data.msg));
+          return data;
         }
       },
       (error) => {
@@ -53,7 +54,7 @@ class BaseRequest {
 
   request<T = any>(config: AxiosRequestConfig): Promise<T> {
     if (this.debug) {
-      const mockData = { code: 200, msg: 'Mock success', data: {} }
+      const mockData = { code: 200, msg: 'Mock success', data: null }
       return new Promise((resolve) => { resolve(mockData as T) });
     }
     return this.instance.request<any, T>(config);
@@ -61,7 +62,7 @@ class BaseRequest {
 
   get<T = any>(url: string, params?: any): Promise<T> {
     if (this.debug) {
-      const mockData = { code: 200, msg: 'Mock success', data: {} }
+      const mockData = { code: 200, msg: 'Mock success', data: null }
       return new Promise((resolve) => { resolve(mockData as T) });
     }
     return this.request<T>({ method: 'GET', url, params });
@@ -69,7 +70,7 @@ class BaseRequest {
 
   post<T = any>(url: string, data?: any): Promise<T> {
     if (this.debug) {
-      const mockData = { code: 200, msg: 'Mock success', data: {} }
+      const mockData = { code: 200, msg: 'Mock success', data: null }
       return new Promise((resolve) => { resolve(mockData as T) });
     }
     return this.request<T>({ method: 'POST', url, data });

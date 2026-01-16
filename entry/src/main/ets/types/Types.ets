@@ -23,13 +23,13 @@ export interface PostItem {
  * 全局存储的用户信息
  */
 export class GlobalUserInfo {
-  userID: number;
+  userId: number;
   userName: string;
   gender: string;
   age: number;
 
-  constructor(userID?: number, userName?: string, gender?: string, age?: number) {
-    this.userID = userID ?? 1;
+  constructor(userId?: number, userName?: string, gender?: string, age?: number) {
+    this.userId = userId ?? 1;
     this.userName = userName ?? 'Jack';
     this.gender = gender ?? 'MALE';
     this.age = age ?? 20;

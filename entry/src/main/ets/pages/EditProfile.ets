@@ -108,6 +108,6 @@ export struct EditProfilePage {
   }
 
   saveProfile = async () => {
-    UserInfoUtils.update(this.userInfo.userID, this.gender, parseInt(this.age))
+    UserInfoUtils.update(this.userInfo.userId, this.gender, parseInt(this.age))
   };
 }
