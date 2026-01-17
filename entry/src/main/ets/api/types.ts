@@ -81,6 +81,7 @@ export interface MessageRes {
   text: string;
 }
 
+
 export interface ApiResponse<T = never> {
   code: number;
   msg: string;

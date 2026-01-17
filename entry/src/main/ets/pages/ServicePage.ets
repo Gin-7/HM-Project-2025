@@ -59,8 +59,8 @@ export struct ServicePage {
           .width('100%')
           .padding({ left: 16, right: 16, top: 16 })
 
-          this.HealthTips()
           this.QuickAccess()
+          this.HealthTips()
         }
       }
       .layoutWeight(1)
@@ -159,7 +159,8 @@ export struct ServicePage {
       Text('快捷功能').fontSize(16).fontWeight(FontWeight.Bold).fontColor('#111111').margin({ bottom: 12 }).width('100%')
       Row() {
         this.QuickItem('紧急联系', '📞')
-        this.QuickItem('健康记录', '📝')
+        this.QuickItem('我的校园', '🏫', 'Campus')
+        // this.QuickItem('健康记录', '📝')
         this.QuickItem('用药提醒', '💊')
         this.QuickItem('运动计划', '🏃', 'TrainingPlan')
       }

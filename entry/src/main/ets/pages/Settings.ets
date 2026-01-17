@@ -1,4 +1,5 @@
 // pages/SettingsPage.ets
+import { PageTitle } from "../components/common/PageTitle"
 
 @Builder
 export function SettingsBuilder() {
@@ -13,20 +14,7 @@ export struct SettingsPage {
   build() {
     NavDestination() {
       Column() {
-        // 标题
-        Stack({alignContent: Alignment.Start}) {
-          Text("设置")
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-            .width('100%')
-            .textAlign(TextAlign.Center)
-          Text('←')
-            .fontSize(20)
-            .fontColor('#007DFF')
-            .onClick(() => {
-              this.pathStack.pop()
-            })
-        }.width('100%').backgroundColor(Color.White).padding(16).margin({bottom: 16})
+        PageTitle({ title: '设置' })
 
         Column({ space: 16 }) {
           // 个人资料

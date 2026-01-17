@@ -1,5 +1,6 @@
 // pages/EditProfilePage.ets
 import { AppStorageV2 } from '@kit.ArkUI';
+import { PageTitle } from '../components/common/PageTitle';
 import { GlobalUserInfo } from '../types/Types';
 import UserInfoUtils from '../utils/UserInfoUtils';
 
@@ -21,20 +22,7 @@ export struct EditProfilePage {
   build() {
     NavDestination() {
       Column() {
-        // 标题
-        Stack({alignContent: Alignment.Start}) {
-          Text("编辑个人资料")
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-            .width('100%')
-            .textAlign(TextAlign.Center)
-          Text('←')
-            .fontSize(20)
-            .fontColor('#007DFF')
-            .onClick(() => {
-              this.pathStack.pop()
-            })
-        }.width('100%').backgroundColor(Color.White).padding(16).margin({bottom: 16})
+        PageTitle({ title: "编辑个人资料"})
 
         Column({ space: 24 }) {
           // 性别选择

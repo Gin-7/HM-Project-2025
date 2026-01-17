@@ -33,6 +33,14 @@
       }
     },
     {
+      "name": "TrainingPlan",
+      "pageSourceFile": "src/main/ets/components/common/TrainingPlan.ets",
+      "buildFunction": "TrainingPlanBuilder",
+      "data": {
+        "description": "训练计划页面"
+      }
+    },
+    {
       "name": "Friend",
       "pageSourceFile": "src/main/ets/pages/FriendList.ets",
       "buildFunction": "FriendListBuilder",
@@ -54,6 +62,38 @@
       "buildFunction": "EditProfileBuilder",
       "data": {
         "description": "编辑个人资料页面"
+      }
+    },
+    {
+      "name": "Campus",
+      "pageSourceFile": "src/main/ets/pages/Campus.ets",
+      "buildFunction": "CampusBuilder",
+      "data": {
+        "description": "校园页面"
+      }
+    },
+    {
+      "name": "CanteenDetail",
+      "pageSourceFile": "src/main/ets/pages/CanteenDetail.ets",
+      "buildFunction": "CanteenDetailBuilder",
+      "data": {
+        "description": "食堂详情页面"
+      }
+    },
+    {
+      "name": "AddCanteen",
+      "pageSourceFile": "src/main/ets/pages/AddCanteen.ets",
+      "buildFunction": "AddCanteenBuilder",
+      "data": {
+        "description": "添加食堂页面"
+      }
+    },
+    {
+      "name": "EditCanteen",
+      "pageSourceFile": "src/main/ets/pages/EditCanteen.ets",
+      "buildFunction": "EditCanteenBuilder",
+      "data": {
+        "description": "编辑食堂页面"
       }
     }
   ]

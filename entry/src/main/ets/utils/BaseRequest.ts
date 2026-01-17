@@ -83,6 +83,14 @@ class BaseRequest {
     }
     return this.request<T>({ method: 'PUT', url, data });
   }
+
+  delete<T = any>(url: string, data?: any): Promise<T> {
+    if (this.debug) {
+      const mockData = { code: 200, msg: 'Mock success', data: {} }
+      return new Promise((resolve) => { resolve(mockData as T) });
+    }
+    return this.request<T>({ method: 'DELETE', url, data });
+  }
 }
 
 // 导出实例

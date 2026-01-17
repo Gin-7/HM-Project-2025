@@ -10,6 +10,7 @@ import HealthUtils from '../utils/HealthUtils'
 import AIUtils from '../utils/AIUtils'
 import MockUtils from '../utils/MockUtils'
 import CommonUtils from '../utils/CommonUtils'
+import { PageTitle } from '../components/common/PageTitle'
 
 
 let userInfo: GlobalUserInfo = AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo())!
@@ -125,19 +126,7 @@ ${health.recordDate}，我的健康数据如下：
   build() {
     NavDestination() {
       // 标题
-      Stack({ alignContent: Alignment.Start }) {
-        Text("个人健康看板")
-          .fontSize(20)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .textAlign(TextAlign.Center)
-        Text('←')
-          .fontSize(20)
-          .fontColor('#007DFF')
-          .onClick(() => {
-            this.pathStack.pop()
-          })
-      }.width('100%').backgroundColor(Color.White).padding(16)
+      PageTitle({ title: '个人健康看板' })
 
       Scroll() {
         Column() {
@@ -212,7 +201,7 @@ ${health.recordDate}，我的健康数据如下：
                 .fontColor('#6e6e6e')
 
               Text(this.showWeeklySteps ? '\u25B2' : '\u25BC')
-                .fontSize(10) // 可略小一点
+                .fontSize(10)
                 .fontColor('#6e6e6e')
                 .margin({ left: 4 })
             }
@@ -303,5 +292,4 @@ ${health.recordDate}，我的健康数据如下：
     })
     .hideTitleBar(true)
   }
-
 }

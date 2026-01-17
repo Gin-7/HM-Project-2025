@@ -3,6 +3,7 @@
 ├───entry/src/main/ets
 │  ├──api
 │  │  ├──ai.ts                                  // ai 接口
+│  │  ├──canteen.ts                             // 食堂接口
 │  │  ├──health.ts                              // 健康记录接口
 │  │  ├──types.ts                               // 各种接口
 │  │  └──user.ts                                // 用户相关 api
@@ -10,16 +11,23 @@
 │  │  ├──common
 │  │  │  ├──AdSwiper.ets
 │  │  │  ├──CreatePostPage.ets
+│  │  │  ├──PageTitle.ets                       // 页面标题组件
 │  │  │  ├──PostCard.ets
 │  │  │  └──TrainingPlan.ets                    // 训练计划
-│  │  └──user
-│  │     └──AccountComponent.ets
+│  │  ├──user
+│  │  │  └──AccountComponent.ets
+│  │  └──CanteenCard.ets                        // 食堂组件
 │  ├──entryability
 │  │  └──EntryAbility.ets
 │  ├──entrybackupability
 │  │  └──EntryBackupAbility.ets
 │  ├──pages
+│  │  ├──AddCanteen.ets                         // 添加食堂页面
+│  │  ├──Campus.ets                             // 我的校园页（包括食堂和场馆预约）
+│  │  ├──Canteen.ets                            // 食堂页
+│  │  ├──CanteenDetail.ets                      // 食堂详情页
 │  │  ├──Course.ets                             // 课表页
+│  │  ├──EditCanteen.ets                        // 编辑食堂页面
 │  │  ├──EditProfile.ets                        // 编辑个人资料
 │  │  ├──FriendList.ets                         // 好友列表
 │  │  ├──Health.ets                             // 健康看板页
@@ -29,10 +37,12 @@
 │  │  ├──Settings.ets                           // 设置
 │  │  └──ServicePage.ets                        // 功能页面
 │  ├──types
+│  │  ├──canteen.ets                            // 食堂 interface
 │  │  └──Types.ets
 │  └──utils
 │     ├──AIUtils.ets                            // AI 工具
 │     ├──BaseRequest.ets                        // axios 请求
+│     ├──CanteenUtils.ets                       // 食堂工具
 │     ├──CommonUtils.ets                        // 公共工具
 │     ├──HealthUtils.ets                        // 健康记录工具
 │     ├──Logger.ets                             // 日志工具
@@ -43,6 +53,7 @@
 ```
 ### 1.17
 - AI 相关
+- 食堂
 
 ### 1.16
 - 健康看板
