@@ -41,6 +41,9 @@
 │     └──UserInfoUtils.ets                      // 个人资料工具
 └──entry/src/main/resources
 ```
+### 1.17
+- AI 相关
+
 ### 1.16
 - 健康看板
 

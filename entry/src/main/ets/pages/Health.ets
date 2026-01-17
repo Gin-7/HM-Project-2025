@@ -5,10 +5,11 @@ import {PostItem,AdItem, GlobalUserInfo, HealthData } from '../types/Types'
 import {CreatePostPage} from '../components/common/CreatePostPage'
 import {ServicePage} from './ServicePage'
 import { AppStorageV2 } from '@kit.ArkUI'
-import { HealthRes, StepsRes } from '../api/types'
+import { HealthRes, StepsRes, SessionRes, MessageReq, MessageRes } from '../api/types'
 import HealthUtils from '../utils/HealthUtils'
 import AIUtils from '../utils/AIUtils'
 import MockUtils from '../utils/MockUtils'
+import CommonUtils from '../utils/CommonUtils'
 
 
 let userInfo: GlobalUserInfo = AppStorageV2.connect(GlobalUserInfo, 'globalUserInfo', () => new GlobalUserInfo())!
@@ -46,7 +47,7 @@ struct Health {
   @State aiSuggestion: string = '';
   @State isAiLoading: boolean = false;
   @State showAiResult: boolean = false;
-
+  @State session: SessionRes | null = null
 
   private async fetchLatestHealthRecord() {
     this.healthRcd = await HealthUtils.getRcdLatest(userInfo.userId);
@@ -55,12 +56,37 @@ struct Health {
     this.weeklySteps = await HealthUtils.getSteps(userInfo.userId);
   }
 
+  private buildHealthInquiryText(health: HealthRes): string {
+    return `
+${health.recordDate}，我的健康数据如下：
+- 血氧：${health.bloodOxygen}%
+- 血压：${health.systolicBp}/${health.diastolicBp} mmHg
+- 血糖：${health.bloodGlucose} mmol/L
+- 心率：${health.heartRate} 次/分钟
+- 体重：${health.weight} kg，身高：${health.height} cm
+- 睡眠：总共 ${health.sleepDuration} 小时（深睡 ${health.deepSleep}h，浅睡 ${health.lightSleep}h）
+- 步数：${health.steps} 步
+- 压力水平：${health.stressLevel}/100
+- 活力指数：${health.vitality}/100
+
+请根据以上数据，给我一些健康建议，比如饮食、运动、睡眠或是否需要就医。
+`.trim().replace(/\n\s+/g, '\n'); // 清理多余空格
+  }
+
   private async fetchAiSuggestion() {
     if (!this.healthRcd) return;
     this.isAiLoading = true;
     this.aiSuggestion = '正在分析您的健康数据...';
     this.showAiResult = true;
-    this.aiSuggestion = await AIUtils.getAISuggestion(this.healthRcd);
+    this.session = await AIUtils.createSession(userInfo.userId)
+    await AIUtils.sendMessageAndWaitAI(
+      this.session!.id,
+      this.buildHealthInquiryText(this.healthRcd),
+      (messages) => {
+        // 实时更新聊天界面
+        this.aiSuggestion = messages[-1].text;
+      }
+    );
     this.isAiLoading = false;
   }
 
@@ -117,6 +143,12 @@ struct Health {
         Column() {
           // 第一部分：运动数据（进度条+数字）
           Column() {
+            Text(`${this.healthRcd!.recordDate} ${CommonUtils.getWeekdayCN(this.healthRcd!.recordDate)}`)
+              .fontSize(16)
+              .fontColor('#333')
+              .fontWeight(FontWeight.Bold)
+              .margin({ bottom: 16 }) // 添加一些底部间距以区分内容
+
             ForEach(this.states, (item: stateItem, index: number) => {
               Row() {
                 Text(item.label)
@@ -174,13 +206,20 @@ struct Health {
               .borderRadius(24)
             }
 
-            Text(this.showWeeklySteps ? '收起' : '过去一周')
-              .fontSize(12)
-              .fontColor('#6e6e6e')
-              .width('100%')
-              .textAlign(TextAlign.End)
-              .margin({ right: 4 })
-              .onClick(() => this.toggleShowWeeklySteps())
+            Row() {
+              Text(this.showWeeklySteps ? '收起' : '过去一周')
+                .fontSize(12)
+                .fontColor('#6e6e6e')
+
+              Text(this.showWeeklySteps ? '\u25B2' : '\u25BC')
+                .fontSize(10) // 可略小一点
+                .fontColor('#6e6e6e')
+                .margin({ left: 4 })
+            }
+            .width('100%')
+            .justifyContent(FlexAlign.End)
+            .margin({ right: 4 })
+            .onClick(() => this.toggleShowWeeklySteps())
           }
           .width('90%')
           .margin({ top: 16 })

@@ -18,7 +18,7 @@ export class MockUtils {
       systolicBp: 120,
       diastolicBp: 80,
       bloodGlucose: 5.6,
-      weight: 132.0,
+      weight: 66.0,
       height: 178.0,
       heartRate: 72,
       sleepDuration: 7.5,

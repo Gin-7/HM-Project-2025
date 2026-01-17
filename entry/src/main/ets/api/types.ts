@@ -63,6 +63,24 @@ export interface StepsRes {
   steps: number;
 }
 
+// AI 创建会话返回类型
+export interface SessionRes {
+  id: number;
+  title: string;
+}
+
+// AI 请求类型
+export interface MessageReq {
+  role: string;
+  text: string;
+}
+
+// AI 返回类型
+export interface MessageRes {
+  role: string;
+  text: string;
+}
+
 export interface ApiResponse<T = never> {
   code: number;
   msg: string;

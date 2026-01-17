@@ -21,7 +21,6 @@ export class CommonUtils {
 
   /**
    * Show toast content.
-   *
    * @param {string} content content to show
    */
   public showToastContent(content: string): void {
@@ -34,6 +33,13 @@ export class CommonUtils {
     } catch (error) {
       Logger.error('CommonUtils', `show toast failed: ${JSON.stringify(error)}`);
     }
+  }
+
+  public getWeekdayCN(dateStr: string): string {
+    const weekdayCN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    const date = new Date(dateStr);
+    const day = date.getDay();
+    return weekdayCN[day];
   }
 }
 
