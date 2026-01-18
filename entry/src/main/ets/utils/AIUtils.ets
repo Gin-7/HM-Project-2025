@@ -63,7 +63,7 @@ export class AIUtils {
     sessionId: number,
     userText: string,
     onNewMessage?: (messages: MessageRes[]) => void,
-    maxWaitSeconds: number = 15
+    maxWaitSeconds: number = 120
   ): Promise<MessageRes[] | null> {
     try {
       // 1. 先发送用户消息
@@ -85,18 +85,22 @@ export class AIUtils {
         }
 
         const pollRes = await getMessagesBySessionId(sessionId);
+        console.log('pollRes:', JSON.stringify(pollRes));
         if (pollRes.code !== 200) {
           console.error('轮询消息失败:', pollRes.msg);
           return null;
         }
 
-        const messages = pollRes.data;
+        const messages = (pollRes.data || []).filter(msg => msg != null);
+        console.log('messages0:', JSON.stringify(messages));
         // 触发实时更新回调
-        onNewMessage?.(messages);
+        onNewMessage?.(messages.filter(msg => msg != null));
+        console.log('messages1:', JSON.stringify(messages));
 
         // 检查是否有 AI 回复
         const hasAssistant = messages.some(msg => msg.role === 'ASSISTANT');
         if (hasAssistant) {
+          console.log('messages2:', JSON.stringify(messages));
           return messages;
         }
 

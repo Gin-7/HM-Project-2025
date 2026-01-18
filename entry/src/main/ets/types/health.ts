@@ -1,24 +1,3 @@
-export interface RegisterRes {
-  id: number;
-  username: string;
-  email: string;
-  createTime: string;
-}
-
-export interface LoginRes {
-  id: number;
-  username: string;
-  email: string;
-  createTime: string;
-}
-
-export interface InfoChangeRes {
-  id: number;
-  username: string;
-  email: string;
-  createTime: string;
-}
-
 export interface HealthCls {
   userId: number;
   recordDate: string; // 通常为 ISO 8601 日期字符串，如 "2025-11-30"
@@ -37,7 +16,7 @@ export interface HealthCls {
   vitality?: number;         // 活力值（假设为 0-100）
 }
 
-export interface HealthRes {
+export interface Health {
   id: number;
   userId: number;
   recordDate: string; // 通常为 ISO 8601 日期字符串，如 "2025-11-30"
@@ -56,34 +35,4 @@ export interface HealthRes {
   vitality: number;         // 活力值（假设为 0-100）
   createTime: string;       // ISO 8601 时间戳
   updateTime: string;       // ISO 8601 时间戳
-}
-
-export interface StepsRes {
-  date: string;
-  steps: number;
-}
-
-// AI 创建会话返回类型
-export interface SessionRes {
-  id: number;
-  title: string;
-}
-
-// AI 请求类型
-export interface MessageReq {
-  role: string;
-  text: string;
-}
-
-// AI 返回类型
-export interface MessageRes {
-  role: string;
-  text?: string;
-}
-
-
-export interface ApiResponse<T = never> {
-  code: number;
-  msg: string;
-  data: T;
 }

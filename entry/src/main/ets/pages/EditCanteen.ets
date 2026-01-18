@@ -1,8 +1,11 @@
 // EditCanteen.ets
-import { Canteen, CanteenReq } from '../types/canteen';
+import { Canteen, CanteenParams, CanteenReq } from '../types/canteen';
 import CanteenUtils from '../utils/CanteenUtils';
 import { AppStorageV2 } from '@kit.ArkUI';
 import { PageTitle } from '../components/common/PageTitle';
+import { emitter } from "@kit.BasicServicesKit";
+
+const EMITTER_ID = "refreshCanteen";
 
 @Builder
 export function EditCanteenBuilder() {
@@ -14,7 +17,9 @@ export function EditCanteenBuilder() {
 struct EditCanteen {
   pathStack: NavPathStack = new NavPathStack()
 
-  @Prop canteenId: number;
+  canteen: Canteen | null = null
+  canteenId: number = 1;
+
   private form: CanteenReq = {
     canteenName: '',
     location: '',
@@ -25,21 +30,16 @@ struct EditCanteen {
     coverUrl: ''
   };
 
-  aboutToAppear() {
-    this.loadCanteen();
-  }
-
   private async loadCanteen() {
-    const canteen = await CanteenUtils.getCanteenById(this.canteenId);
-    if (canteen) {
+    if (this.canteen) {
       this.form = {
-        canteenName: canteen.canteenName,
-        location: canteen.location || '',
-        businessHours: canteen.businessHours || '',
-        description: canteen.description || '',
-        recommendation: canteen.recommendation || '',
-        campus: canteen.campus || '',
-        coverUrl: canteen.coverUrl || ''
+        canteenName: this.canteen.canteenName,
+        location: this.canteen.location || '',
+        businessHours: this.canteen.businessHours || '',
+        description: this.canteen.description || '',
+        recommendation: this.canteen.recommendation || '',
+        campus: this.canteen.campus || '',
+        coverUrl: this.canteen.coverUrl || ''
       };
     } else {
       console.error('加载食堂失败');
@@ -82,6 +82,7 @@ struct EditCanteen {
           Button('保存')
             .onClick(async () => {
               await CanteenUtils.updateCanteen(this.canteenId, this.form)
+              emitter.emit(EMITTER_ID);
               this.pathStack.pop()
             })
         }
@@ -90,6 +91,10 @@ struct EditCanteen {
       .padding(16)
     }
     .onReady((context: NavDestinationContext) => {
+      const params: CanteenParams = context.pathInfo.param as CanteenParams;
+      this.canteen = params?.canteen;
+      this.canteenId = this.canteen.id;
+      this.loadCanteen()
       this.pathStack = context.pathStack
     })
     .hideTitleBar(true)

@@ -7,7 +7,7 @@ import type { ApiResponse, HealthCls, HealthRes, SessionRes, MessageReq, Message
  * @returns 新创建的会话（初始 title 为 null）
  */
 export const createSession = async (userId: number): Promise<ApiResponse<SessionRes>> => {
-  return axiosAPI.post<ApiResponse<SessionRes>>('/api/sessions', { userId });
+  return axiosAPI.post<ApiResponse<SessionRes>>(`/api/sessions?userId=${userId}`);
 };
 
 /**

@@ -5,6 +5,7 @@ import { CanteenCard } from '../components/CanteenCard';
 import router from '@ohos.router';
 import MockUtils from '../utils/MockUtils'
 import { AppStorageV2 } from '@kit.ArkUI';
+import { emitter } from '@kit.BasicServicesKit';
 
 
 @Preview
@@ -12,13 +13,18 @@ import { AppStorageV2 } from '@kit.ArkUI';
 export struct CanteenPage {
   pathStack: NavPathStack = AppStorageV2.connect(NavPathStack, 'navStack', () => new NavPathStack())!
 
-  canteens: Canteen[] = [];
+  @State canteens: Canteen[] = [];
   @State filteredCanteens: Canteen[] = [];
   @State searchKeyword: string = '';
   @State campusFilter: string = ''; // 可选：默认空表示全部
 
   aboutToAppear() {
     this.loadCanteens();
+    emitter.on("refreshCanteen", () => this.loadCanteens());
+  }
+
+  aboutToDisappear(): void {
+    emitter.off("refreshCanteen");
   }
 
   private async loadCanteens() {
@@ -29,6 +35,7 @@ export struct CanteenPage {
 
   private applyFilter() {
     let result = this.canteens;
+    console.info(JSON.stringify(this.canteens))
 
     // 按校区过滤（可选）
     if (this.campusFilter) {

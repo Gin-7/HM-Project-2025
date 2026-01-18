@@ -95,6 +95,46 @@
       "data": {
         "description": "编辑食堂页面"
       }
+    },
+    {
+      "name": "HealthRecord",
+      "pageSourceFile": "src/main/ets/pages/HealthRecord.ets",
+      "buildFunction": "HealthRecordBuilder",
+      "data": {
+        "description": "健康记录页面"
+      }
+    },
+    {
+      "name": "ExerciseRecord",
+      "pageSourceFile": "src/main/ets/pages/ExerciseRecord.ets",
+      "buildFunction": "ExerciseRecordBuilder",
+      "data": {
+        "description": "运动记录页面"
+      }
+    },
+    {
+      "name": "ExercisePlan",
+      "pageSourceFile": "src/main/ets/pages/ExercisePlan.ets",
+      "buildFunction": "ExercisePlanBuilder",
+      "data": {
+        "description": "运动计划页面"
+      }
+    },
+    {
+      "name": "CreateExerciseRecord",
+      "pageSourceFile": "src/main/ets/pages/CreateExerciseRecord.ets",
+      "buildFunction": "CreateExerciseRecordBuilder",
+      "data": {
+        "description": "创建运动记录页面"
+      }
+    },
+    {
+      "name": "CreateExercisePlan",
+      "pageSourceFile": "src/main/ets/pages/CreateExercisePlan.ets",
+      "buildFunction": "CreateExercisePlanBuilder",
+      "data": {
+        "description": "创建运动计划页面"
+      }
     }
   ]
 }

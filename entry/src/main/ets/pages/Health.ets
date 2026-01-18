@@ -34,9 +34,9 @@ struct Health {
   today: Date = new Date();
   dayOfWeek: number = this.today.getDay();
 
-  healthRcd: HealthRes | null = null;
-  weeklySteps: StepsRes[] | null = null;
-  mock: Boolean = false;
+  @State healthRcd: HealthRes | null = null;
+  @State weeklySteps: StepsRes[] | null = null;
+  @State mock: Boolean = false;
   @State states: stateItem[] = [];
   @State body: stateItem[] = [];
 
@@ -52,6 +52,8 @@ struct Health {
 
   private async fetchLatestHealthRecord() {
     this.healthRcd = await HealthUtils.getRcdLatest(userInfo.userId);
+    console.info("JSON.stringify(this.healthRcd)")
+    console.info(JSON.stringify(this.healthRcd))
   }
   private async fetchStepsLastWeek() {
     this.weeklySteps = await HealthUtils.getSteps(userInfo.userId);
@@ -76,6 +78,7 @@ ${health.recordDate}，我的健康数据如下：
 
   private async fetchAiSuggestion() {
     if (!this.healthRcd) return;
+    console.info("ai")
     this.isAiLoading = true;
     this.aiSuggestion = '正在分析您的健康数据...';
     this.showAiResult = true;
@@ -85,7 +88,7 @@ ${health.recordDate}，我的健康数据如下：
       this.buildHealthInquiryText(this.healthRcd),
       (messages) => {
         // 实时更新聊天界面
-        this.aiSuggestion = messages[-1].text;
+        this.aiSuggestion = messages[1].text ?? '';
       }
     );
     this.isAiLoading = false;
@@ -94,9 +97,11 @@ ${health.recordDate}，我的健康数据如下：
   async aboutToAppear() {
     await this.fetchLatestHealthRecord();
     if (this.healthRcd == null) {
+      console.info('???')
       this.mock = true
       this.healthRcd = MockUtils.mockHealthRecord()
     }
+    console.info(JSON.stringify(this.healthRcd))
     await this.fetchStepsLastWeek();
     if (this.weeklySteps == null) {
       this.mock = true
@@ -132,7 +137,7 @@ ${health.recordDate}，我的健康数据如下：
         Column() {
           // 第一部分：运动数据（进度条+数字）
           Column() {
-            Text(`${this.healthRcd!.recordDate} ${CommonUtils.getWeekdayCN(this.healthRcd!.recordDate)}`)
+            Text(`${this.healthRcd?.recordDate} ${CommonUtils.getWeekdayCN(this.healthRcd?.recordDate)}`)
               .fontSize(16)
               .fontColor('#333')
               .fontWeight(FontWeight.Bold)
@@ -218,7 +223,18 @@ ${health.recordDate}，我的健康数据如下：
 
           // 第二部分：生理指标（卡片网格）
           Column() {
-            Text("生理指标").fontSize(18).fontWeight(FontWeight.Bold).width('100%');
+            Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.SpaceBetween }) {
+              Text("生理指标").fontSize(18).fontWeight(FontWeight.Bold).width('70%')
+              Text("历史 \u25BA")
+                .width('20%')
+                .textAlign(TextAlign.Center)
+                .onClick(() => {
+                  this.pathStack.pushPathByName("HealthRecord", null);
+                })
+                .margin({ left: 8 })
+            }
+            .margin({ top: 8 })
+
             Flex({ wrap: FlexWrap.Wrap, justifyContent: FlexAlign.SpaceBetween }) {
               ForEach(this.body, (item: stateItem) => {
                 // 指标卡片

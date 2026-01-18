@@ -4,7 +4,7 @@ import { AppStorageV2, UIContext } from '@kit.ArkUI';
 class BaseRequest {
   instance: AxiosInstance;
 
-  debug: boolean = true;    // debug
+  debug: boolean = false;    // debug
 
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(config);
@@ -96,5 +96,5 @@ class BaseRequest {
 // 导出实例
 export const axiosAPI = new BaseRequest({
   baseURL: 'http://192.168.1.102:8080',
-  timeout: 10000
+  timeout: 120000
 });

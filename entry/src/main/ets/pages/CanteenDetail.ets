@@ -16,7 +16,7 @@ export function CanteenDetailBuilder() {
 struct CanteenDetail {
   @State pathStack: NavPathStack = new NavPathStack()
 
-  canteen: Canteen | null = null
+  @State canteen: Canteen | null = null
   canteenId: number = 1;
 
   private async deleteCanteen() {
@@ -26,6 +26,10 @@ struct CanteenDetail {
         this.pathStack.pop()
       }
     }
+  }
+
+  private async updateCanteen() {
+    this.canteen = await CanteenUtils.getCanteenById(this.canteenId)
   }
 
   build() {
@@ -57,8 +61,10 @@ struct CanteenDetail {
             Row() {
               Button('编辑')
                 .layoutWeight(1)
-                .onClick(() => this.pathStack.pushPathByName('EditCanteen', null, false))
-
+                .onClick(() => {
+                  const params: CanteenParams = { canteen: this.canteen! }
+                  this.pathStack.pushPathByName('EditCanteen', params, false)
+                })
               Blank().width(16)
 
               Button('删除')
@@ -89,6 +95,9 @@ struct CanteenDetail {
       this.canteen = params?.canteen;
       this.canteenId = this.canteen.id;
       this.pathStack = context.pathStack
+    })
+    .onResult(() => {
+      this.updateCanteen()
     })
     .hideTitleBar(true)
   }

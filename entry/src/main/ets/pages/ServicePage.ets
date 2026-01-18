@@ -158,11 +158,10 @@ export struct ServicePage {
     Column() {
       Text('快捷功能').fontSize(16).fontWeight(FontWeight.Bold).fontColor('#111111').margin({ bottom: 12 }).width('100%')
       Row() {
-        this.QuickItem('紧急联系', '📞')
         this.QuickItem('我的校园', '🏫', 'Campus')
         // this.QuickItem('健康记录', '📝')
-        this.QuickItem('用药提醒', '💊')
-        this.QuickItem('运动计划', '🏃', 'TrainingPlan')
+        this.QuickItem('运动记录', '📝', 'ExerciseRecord')
+        this.QuickItem('运动计划', '🏃', 'ExercisePlan')
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)

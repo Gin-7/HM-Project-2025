@@ -27,8 +27,6 @@ struct Campus {
     {text: '场馆', icon: $r('app.media.startIcon')}
   ]
 
-  canteens: Canteen[] = [];
-
   build() {
     NavDestination() {
       Column() {
@@ -56,6 +54,8 @@ struct Campus {
     }
     .onReady((context: NavDestinationContext) => {
       this.pathStack = context.pathStack
+    })
+    .onResult(() => {
     })
     .title("我的校园")
   }

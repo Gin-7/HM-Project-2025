@@ -2,7 +2,9 @@
 import { PageTitle } from '../components/common/PageTitle';
 import { CanteenReq } from '../types/canteen';
 import CanteenUtils from '../utils/CanteenUtils';
+import { emitter } from "@kit.BasicServicesKit";
 
+const EMITTER_ID = "refreshCanteen";
 @Builder
 export function AddCanteenBuilder() {
   AddCanteen()
@@ -57,6 +59,7 @@ struct AddCanteen {
         Button('保存')
           .onClick(async () => {
             await CanteenUtils.createCanteen(this.form)
+            emitter.emit(EMITTER_ID);
             this.pathStack.pop()
           })
       }
